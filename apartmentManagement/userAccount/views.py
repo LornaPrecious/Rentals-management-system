@@ -23,7 +23,8 @@ def register (request):
             password = request.POST['password']
             pass2 = request.POST['pass2']
             phonenumber = request.POST['phonenumber']
-            gender = request.POST['gender']  
+            gender = request.POST['gender'] 
+            classify = request.POST['classify'] 
           
             if User.objects.filter(username=username):
                   messages.error(request, "Username already exist! Please try again")
@@ -43,7 +44,7 @@ def register (request):
             user.is_active = False
             user.save()
             
-            mycustomer=Customer(user = user, first_name = fname, last_name = lname, email=email, password=password, phone_number=phonenumber, gender=gender )                                
+            mycustomer=Customer(user = user, first_name = fname, last_name = lname, email=email, password=password, phone_number=phonenumber, gender=gender, classification = classify)                                
             mycustomer.save()
 
             messages.success(request, "Your account has been created successfully. Please check your email for email verification.")
@@ -78,7 +79,7 @@ def custom_login(request):
             if user is not None:
                   login(request, user)
                   username = user.username
-                  return render(request, "main/index.html", {'username': username})
+                  return render(request, "main/home.html", {'username': username})
 
             else:
                   messages.error(request, "Wrong credentials")

@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>RentHub/ AptFinder</title>
+  <title>RentHub</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -37,6 +37,51 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+<script type = "text/javascript">
+  
+  var user = '{{request.user}}'
+
+  function getToken(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+              var cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+
+  var csrftoken = getToken('csrftoken');
+  
+  
+    // function getCookie(name){
+    //     //split cookie string and get all individual name value pairs in an array
+    //     var cookieArr = document.cookie.split(";");
+
+    //     //loop through the array elements
+    //     for(var i = 0; i < cookieArr.length; i++){
+    //         var cookiePair = cookieArr[i].split("=");
+
+    //         /*removing whitespaces at the beginning of the cookie name and compare it with the given string */
+    //         if(name == cookiePair[0].trim()){
+    //             //decode the cookie value and return
+    //             return decodeURIComponent(cookiePair[1]);
+    //         }
+    //     }
+    //     //return null if not found
+    //     return null;
+    // } 
+
+
+
+  </script>
 </head>
 
 <body>
@@ -48,7 +93,7 @@
       <a href="{% url 'home' %}" class="logo d-flex align-items-center">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1>UpConstruction<span>.</span></h1>
+        <h1>RENTHUB<span>.</span></h1>
       </a>
 
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
@@ -96,7 +141,7 @@
 
           <div class="col-lg-4 col-md-6">
             <div class="footer-info">
-              <h3>UpConstruction</h3>
+              <h3>RentHub</h3>
               <p>
                 A108 Adam Street <br>
                 NY 535022, USA<br><br>
@@ -123,18 +168,7 @@
             </ul>
           </div><!-- End footer links column-->
 
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><a href="#">Web Design</a></li>
-              <li><a href="#">Web Development</a></li>
-              <li><a href="#">Product Management</a></li>
-              <li><a href="#">Marketing</a></li>
-              <li><a href="#">Graphic Design</a></li>
-            </ul>
-          </div><!-- End footer links column-->
-
-          <div class="col-lg-2 col-md-3 footer-links">
+            <div class="col-lg-2 col-md-3 footer-links">
             <h4>Hic solutasetp</h4>
             <ul>
               <li><a href="#">Molestiae accusamus iure</a></li>

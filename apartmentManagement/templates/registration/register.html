@@ -9,7 +9,7 @@
   <main id="main">
 
     <!-- ======= Breadcrumbs ======= -->
-    <div class="breadcrumbs d-flex align-items-center" style="background-image: url('assets/img/breadcrumbs-bg.jpg');">
+    <div class="breadcrumbs d-flex align-items-center" style="background-image: url('/static/img/breadcrumbs-bg.jpg');">
       <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
 
         <h2>Register</h2>
@@ -22,100 +22,119 @@
     </div><!-- End Breadcrumbs -->
 
     <section class="sample-page">
-      <div class="container">
-
-        <form  method = 'POST' class = "row g-3" action ="/register/">
+      <div class="container"  data-aos="fade-up" data-aos-delay="100">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 mx-auto bg-light p-5">  
+                <div class="position-relative d-flex flex-column">
+                    <form  method = 'POST' class="row g-4"  action ="/register/">
+                                
+                    {% csrf_token %}
                     
-          {% csrf_token %}
-         
-          <div class="col-md-4">
-              <p class="text-start"> Name: </p>
+                        <div class="col-md-4">
+                            <p class="text-start"> Name: </p>
 
-          </div>
-          <div class="col-md-3">
-              <input required type="text" class="form-control" id="fname" name="fname" autocomplete="given-name">
-              <label for="fname" class="form-label">First name</label>
-          </div>
+                        </div>
+                        <div class="col-md-4">
+                            <input required type="text" class="form-control" id="fname" name="fname" autocomplete="given-name" placeholder="First name">
 
-              <div class="col-md-3">
-                  <input required type="text" class="form-control" id="lname" name="lname" autocomplete="family-name">
-                  <label for="lname" class="form-label">Last name</label>
-              </div>
+                        </div>
 
-              <div class="col-md-4">
-                  <p class="text-start"> Username: </p>
+                        <div class="col-md-4">
+                            <input required type="text" class="form-control" id="lname" name="lname" autocomplete="family-name" placeholder="Last name">
+                        </div>
 
-              </div>
+                        <div class="col-md-4">
+                            <p class="text-start"> Username: </p>
 
-              <div class="col-md-6">
-                  <input required type="text" class="form-control" id="username" name="username" autocomplete="username">
-              </div>
+                        </div>
 
-              <div class="col-md-4">
-                  <p class="text-start"> Phone number: </p>
+                        <div class="col-md-8">
+                            <input required type="text" class="form-control" id="username" name="username" autocomplete="username">
+                        </div>
 
-              </div>
-              <div class="col-md-6">
-               
-                  <input required type="text" class="form-control" id="phonenumber" name="phonenumber" autocomplete="tel">
-              </div>
+                        <div class="col-md-4">
+                            <p class="text-start"> Phone number: </p>
 
-              <div class="col-md-4">
-                  <p class="text-start"> Email address: </p>
+                        </div>
+                        <div class="col-md-8">
+                        
+                            <input required type="text" class="form-control" id="phonenumber" name="phonenumber" autocomplete="tel">
+                        </div>
 
-              </div>
-              <div class="col-md-6">                                            
-                  <input required type="email" class="form-control" id="email" name="email" autocomplete="email">
-              </div>
+                        <div class="col-md-4">
+                            <p class="text-start"> Email address: </p>
 
-      
-              <div class="col-md-12">
-                  <p class="text-start">Gender: </p>
-                  <ul class="list-unstyled">
-                  <li class="d-block w-30 float-start"><input type="radio" class="option-input" name="gender" id="male" value="male">
-      
-                  <label for="male" class="form-check-label">Male</label> </li>                                            
-      
-                  <li class="d-block w-30 float-start"><input type="radio" class="option-input" id="female" value="female" name="gender">
-                  <label for="female" class="form-check-label">Female</label> </li>
+                        </div>
+                        <div class="col-md-8">                                            
+                            <input required type="email" class="form-control" id="email" name="email" autocomplete="email">
+                        </div>
 
-                  <li class="d-block w-30 float-start"><input type="radio" class="option-input" id="other" value="other" name="gender">
-                      <label for="other" class="form-check-label">Other</label> </li>
+                
+                        <div class="col-md-4">
+                            <p class="text-start"> Gender: </p>
 
-                  </ul>
-              </div> 
+                        </div>
+                        <div class="col-md-8">                                            
+                            <input required type="text" class="form-control" id="gender" name="gender">
+                        </div>
+                    
+                    
+                    <!-- <div class="col-md-8">
+                        
+                            <input type="radio" class="option-input" name="gender" id="male" value="male">
+                            <label for="male" class="form-check-label">Male</label> 
 
-              <div class="col-md-4">
-                  <p class="text-start"> Password: </p>
+                            <input type="radio" class="option-input" id="female" value="female" name="gender">
+                            <label for="female" class="form-check-label">Female</label> 
 
-              </div>
+                            <input type="radio" class="option-input" id="other" value="other" name="gender">
+                            <label for="other" class="form-check-label">Other</label> 
 
-              <div class="col-md-6">
-                  <input required type="password" class="form-control" id="password" name="password" autocomplete="new-password">
-              </div>
+                            </ul>
+                        </div>  -->
 
-              <div class="col-md-4">
-                  <p class="text-start"> Confirm password: </p>
+                        <div class="col-md-4">
+                            <p class="text-start"> Password: </p>
 
-              </div>
+                        </div>
 
-              <div class="col-md-6">
-                  <input required type="password" class="form-control" id="pass2" name="pass2"  autocomplete="current-password">
-              </div>
+                        <div class="col-md-8">
+                            <input required type="password" class="form-control" id="password" name="password" autocomplete="new-password">
+                        </div>
 
-                                                          
-              <div class="col-12 text-center my-5">
-              <input type="submit" class="btn btn-outline-primary btn-lg1" value="Sign up!">
-              </div>
-          </form>
+                        <div class="col-md-4">
+                            <p class="text-start"> Confirm password: </p>
+
+                        </div>
+
+                        <div class="col-md-8">
+                            <input required type="password" class="form-control" id="pass2" name="pass2"  autocomplete="current-password">
+                        </div>
+
+                        <div class="col-md-4">
+                            <p class="text-start"> Landlord or user? </p>
+
+                        </div>
+
+                        <div class="col-md-8">
+                            <input required type="text" class="form-control" id="classify" name="classify">
+                        </div>
+
+                                                                    
+                        <div class="col-12 text-center my-4">
+                        <input type="submit" class="btn btn-outline-primary btn-lg1" value="Sign up!">
+                        </div>
+
+                        <p> You already have an account?<a href = '/login'> Login </a> </p>
+                    </form>
 
            
 
-      <p> You already have an account?<a href = '/login'> Login </a> </p>
+                     
   
-</form>    
-
-
+                </div>
+            </div>
+        </div>
       </div>
     </section>
 
