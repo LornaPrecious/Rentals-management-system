@@ -30,6 +30,7 @@
   <!-- Template Main CSS File -->
   <link href="{% static 'css/main.css' %}" rel="stylesheet">
 
+
   <!-- =======================================================
   * Template Name: UpConstruction
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -61,30 +62,19 @@
   var csrftoken = getToken('csrftoken');
   
   
-    // function getCookie(name){
-    //     //split cookie string and get all individual name value pairs in an array
-    //     var cookieArr = document.cookie.split(";");
-
-    //     //loop through the array elements
-    //     for(var i = 0; i < cookieArr.length; i++){
-    //         var cookiePair = cookieArr[i].split("=");
-
-    //         /*removing whitespaces at the beginning of the cookie name and compare it with the given string */
-    //         if(name == cookiePair[0].trim()){
-    //             //decode the cookie value and return
-    //             return decodeURIComponent(cookiePair[1]);
-    //         }
-    //     }
-    //     //return null if not found
-    //     return null;
-    // } 
-
-
-
   </script>
 </head>
 
 <body>
+
+  {% for message in messages %}
+        <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+            <strong>Message: </strong> {{message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="close">
+            <span aria-hidden="true">&times;</span> </button>
+
+        </div>
+    {% endfor%}
 
   <!-- ======= Header ======= -->
   <header id="header" class="header d-flex align-items-center">
@@ -98,34 +88,108 @@
 
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+
+      {% if not user.is_authenticated %}
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="{% url 'home' %}" class="active">Home</a></li>
           <li><a href="{% url 'aboutus' %}">About</a></li>
           <li class="dropdown"><a href="{% url 'apartments' %}"><span>Apartments</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
-              <li><a href="#">Purchase</a></li>
-              <li class="dropdown"><a href="#"><span>Rent</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                <ul>
-                  <li><a href="#">Short term rentals</a></li>
+                 <li><a href="#">Short term rentals</a></li>
                   <li><a href="#">Long term rentals</a></li>
                 </ul>
-              </li> </ul> </li>
+              </li> 
 
           <li><a href="{% url 'contact' %}">Contact</a></li>
           <li><a href = "{% url 'register' %}"> Sign up </a></li>
           <li><a href="{% url 'login' %}">Login</a></li>
 
+        </ul>
+
+        </nav>
+
+        {% else %}
+
           <!-- IF USER IS LOGGED IN -->
-          <li class="dropdown"><a href="#"><span>Profile</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+          <nav id="navbar" class="navbar">
             <ul>
-              <li><a href="#">Account</a></li>
-              <li><a href="#">Bookings</a></li>
-              <li><a href="#">Logout</a></li>
-            </ul>
-          </li>
+              <li><a href="{% url 'home' %}" class="active">Home</a></li>
+              <li><a href="{% url 'aboutus' %}">About</a></li>
+              <li class="dropdown"><a href="{% url 'apartments' %}"><span>Apartments</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                <ul>
+                  <li><a href="#">Short term rentals</a></li>
+                  <li class="dropdown"><a href="#"><span>Long term rentals</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a></li>
+                 </ul> </li>
+    
+              <li><a href="{% url 'contact' %}">Contact</a></li>
+
+
+
+            <!-- USER PROFILE -->
+                    
+              <li class="nav-item dropdown pe-3">
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                  <!--<img src='{{customer.customer_imageURL}}' alt="Profile" class="rounded-circle"> -->
+                  <span class="d-none d-md-block dropdown-toggle ps-2">{{user.username}}</span>
+                </a><!-- End Profile Iamge Icon -->
+              
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                  <li class="dropdown-header">
+                    <h6>{{user.username}}</h6>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" href="{% url 'profile' %}">
+                      <i class="bi bi-person"></i>
+                      <span>My Profile</span>
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                      <i class="bi bi-gear"></i>
+                      <span>Account Settings</span>
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                      <i class="bi bi-question-circle"></i>
+                      <span>Need Help?</span>
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" href="/logout/">
+                      <i class="bi bi-box-arrow-right"></i>
+                      <span>Sign Out</span>
+                    </a>
+                  </li>
+
+                </ul><!-- End Profile Dropdown Items -->
+              </li><!-- End Profile Nav -->
+
+
+
+
+
         </ul>
       </nav><!-- .navbar -->
+
+      {% endif %}
 
     </div>
   </header><!-- End Header -->

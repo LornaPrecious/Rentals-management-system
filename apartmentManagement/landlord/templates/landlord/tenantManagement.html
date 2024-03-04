@@ -1,0 +1,159 @@
+{% extends 'landlord/landlordBase.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+{% block pagecontent %}
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Apartment information</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/home/">Home</a></li>
+          <li class="breadcrumb-item">Users</li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section profile">
+      <div class="row">
+
+            <h5 class="card-title">Add Your Apartment Listing:</h5>
+            <p class="small fst-italic">Input details about your apartment now and have the flexibility to edit at any time. Keep your listing up-to-date effortlessly!</p>
+
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-body pt-3">
+
+
+                    <ul class="nav nav-tabs nav-tabs-bordered">
+                       
+                        <li class="nav-item">
+                          <button class="nav-link" data-bs-toggle="tab"> <a href="/propertyManagement/">Edit apartment details </a></button>
+                        </li>
+        
+                        <li class="nav-item">
+                          <button class="nav-link" data-bs-toggle="tab"> <a href="/unitManagement/">Edit unit details </a></button>
+                        </li>
+        
+                            
+                      </ul>
+                      
+                        <!-- Profile Edit Form -->
+                        <form method="post" action="/profile/">
+      
+                          {% csrf_token %}
+      
+                          <div class="row mb-3">
+                            <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                            <div class="col-md-8 col-lg-9">
+                              <img src="{{customer.customer_image}}" alt="Profile">
+                              <div class="pt-2">
+                                <a href="#" id="upload-profile-image" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
+                                <a href="#" id="remove-profile-image" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                              </div>
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">First Name</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="fname" type="text" class="form-control" id="fname">
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="lname" type="text" class="form-control" id="lname">
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Date of birth</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="dob" type="date" class="form-control" id="dob">
+                            </div>
+                          </div>
+      
+                          
+                          <div class="row mb-3">
+                            <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="email" type="email" class="form-control" id="email">
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="phonenumber" type="text" class="form-control" id="phonenumber">
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="Email" class="col-md-4 col-lg-3 col-form-label">Gender</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="gender" type="text" class="form-control" id="gender">
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Lease start</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="lease_start" type="date" class="form-control" id="lease_start">
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Lease end</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="lease_end" type="date" class="form-control" id="lease_end">
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Lease term</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="lease_term" type="text" class="form-control" id="lease_term">
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Emergency contact name</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="emergency_name" type="text" class="form-control" id="emergency_name">
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Emergency contact phone</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="emergency_phone" type="text" class="form-control" id="emergency_phone">
+                            </div>
+                          </div>
+      
+                        
+                          <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                          </div>
+                        </form><!-- End Profile Edit Form -->
+      
+                      
+      
+      
+                </div>
+            </div>
+        </div>
+
+    </section>
+</main>
+
+{% endblock %}
+</body>
+</html>
+    

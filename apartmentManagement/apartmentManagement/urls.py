@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from userAccount import views as v
+from main import views as mv
+from landlord import views  as lv
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -30,18 +32,26 @@ from django.contrib.auth.views import(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include("main.urls")),
-    path('home/', include("main.urls")),
-    path('aboutus/', include("main.urls")),
-    path('contactus/', include("main.urls")),
-    path('apartments/', include("main.urls")),
-    path('apartment-details/', include("main.urls")),
+    path('',  mv.home, name ='home'),
+    path('home/',  mv.home, name ='home'),
+    path('aboutUs/',  mv.aboutus, name ='aboutus'),
+    path('contactUs/',  mv.contactus, name ='contact'),
+    
+    
         
     path('register/', v.register, name ='register'),
     path('accounts/', include("django.contrib.auth.urls")),
     path('login/', v.custom_login, name='login'), 
     path('logout/', v.signout, name='signout'), 
     path('activate/<uidb64>/<token>', v.activate, name='activate'),
+    
+
+    path('apartments/',  lv.apartments, name ='apartments'),
+    path('apartment-details/<int:property_code>/',  lv.apartmentDetails, name ='apartmentdetails'),
+    path('profile/',  lv.profile, name ='profile'),
+    path('propertyManagement/',  lv.propertyManagement, name ='propertyManagement'),
+    path('unitManagement/',  lv.unitManagement, name ='unitManagement'),
+    
 
     path('password-reset/', PasswordResetView.as_view(
            template_name='registration/password_reset_form.html',

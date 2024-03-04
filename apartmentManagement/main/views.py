@@ -9,11 +9,5 @@ def home(request):
 def aboutus(request):
     return render(request, "main/aboutus.html")
 
-def apartments(request):
-    return render(request, "main/apartments.html")
-
-def apartmentDetails(request):
-    return render(request, "main/apartment-details.html")
-
 def contactus(request):
     return render(request, "main/contact.html")

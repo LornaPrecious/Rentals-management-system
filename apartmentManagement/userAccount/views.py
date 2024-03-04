@@ -1,3 +1,4 @@
+import os
 from django.http import HttpResponse
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth import authenticate, login, logout
@@ -24,7 +25,8 @@ def register (request):
             pass2 = request.POST['pass2']
             phonenumber = request.POST['phonenumber']
             gender = request.POST['gender'] 
-            classify = request.POST['classify'] 
+            classify = request.POST['classify']
+            profile_picture = request.FILES.get('profile_picture') 
           
             if User.objects.filter(username=username):
                   messages.error(request, "Username already exist! Please try again")
@@ -38,13 +40,22 @@ def register (request):
                   messages.error(request, "Passwords did not match!")        
 
 
+            if profile_picture:
+                  # Construct the file path using MEDIA_ROOT
+                  file_path = os.path.join(settings.MEDIA_ROOT, 'profile_picture.jpg')
+
+                  # Open the file using the constructed file path
+                  with open(file_path, 'wb+') as destination:
+                        for chunk in profile_picture.chunks():
+                              destination.write(chunk)
+
             user = User.objects.create_user(username, email, password)
             user.first_name = fname
             user.last_name = lname
             user.is_active = False
             user.save()
             
-            mycustomer=Customer(user = user, first_name = fname, last_name = lname, email=email, password=password, phone_number=phonenumber, gender=gender, classification = classify)                                
+            mycustomer=Customer(user = user, first_name = fname, last_name = lname, email=email, password=password, phone_number=phonenumber, gender=gender, role = classify, customer_image = profile_picture)                                
             mycustomer.save()
 
             messages.success(request, "Your account has been created successfully. Please check your email for email verification.")

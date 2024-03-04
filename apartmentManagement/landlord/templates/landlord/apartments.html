@@ -1,0 +1,97 @@
+{% extends 'main/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+  {% block pagecontent %}
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs d-flex align-items-center" style="background-image: url(/static/img/breadcrumbs-bg.jpg);">
+      <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
+
+        <h2>Apartments</h2>
+        <ol>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li>Apartments</li>
+        </ol>
+
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= Our Projects Section ======= -->
+    <section id="projects" class="projects">
+      <div class="container" data-aos="fade-up">
+
+        <div class="search-bar">
+          <form class="search-form d-flex align-items-center" method="POST" action="#">
+            {% csrf_token%}
+            <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+          </form>
+        </div><!-- End Search Bar -->
+
+        <div class="portfolio-isotope" data-portfolio-filter="*" data-portfolio-layout="masonry" data-portfolio-sort="original-order">
+
+          <ul class="portfolio-flters" data-aos="fade-up" data-aos-delay="100">
+            <li data-filter="*" class="filter-active">All</li>
+            <li data-filter=".filter-apartment">Apartment</li>
+            <li data-filter=".filter-duplex">Duplex</li>
+            <li data-filter=".filter-condominium">Condominium</li>
+            <li data-filter=".filter-singlefamilyhomes">Single family homes</li>
+          </ul><!-- End Projects Filters -->
+
+          <div class="row gy-4 portfolio-container" data-aos="fade-up" data-aos-delay="200">
+
+
+        {% for property in properties %}
+
+         <!-- Determine the filter class based on property_type -->
+          <!-- {% with property.property_type as p_type %}
+            {% if p_type == 'apartment_building' %} 
+                {% with filter_class='filter-apartment' %}  {% endwith %}
+            {% elif p_type == 'duplex' %}
+                {% with filter_class='filter-duplex' %}  {% endwith %}
+            {% elif p_type == 'condominium' %} 
+                {% with filter_class='filter-condominium' %}  {% endwith %}
+            {% elif p_type == 'single_family_home' %}
+                {% with filter_class='filter-singlefamilyhomes' %}  {% endwith %}
+            {% else %}
+                {% with filter_class='' %}  {% endwith %}
+            {% endif %} -->
+
+
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-duplex">
+              <div class="portfolio-content h-100">
+                <img src="{{property.property_imageURL}}" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>{{property.property_type}}</h4>
+                  <p>{{property.description}}</p>
+                  <a href="{{property.property_imageURL}}" title="Property details" data-gallery="portfolio-gallery-construction" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                 <a href="{% url 'apartmentdetails' property.property_code %}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> 
+                </div>
+              </div>
+            </div><!-- End Projects Item -->
+
+            
+           
+            <!--{% endwith %} -->
+
+          {% endfor %}
+          </div><!-- End Projects Container -->
+
+        </div>
+
+      </div>
+    </section><!-- End Our Projects Section -->
+
+  </main><!-- End #main -->
+
+  {% endblock %}
+
+</body>
+
+</html>

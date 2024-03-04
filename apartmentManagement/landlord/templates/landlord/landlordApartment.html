@@ -1,0 +1,208 @@
+{% extends 'landlord/landlordBase.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+{% block pagecontent %}
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Apartment information</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/home/">Home</a></li>
+          <li class="breadcrumb-item">Users</li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section profile">
+      <div class="row">
+
+            <h5 class="card-title">Add Your Apartment Listing:</h5>
+            <p class="small fst-italic">Input details about your apartment now and have the flexibility to edit at any time. Keep your listing up-to-date effortlessly!</p>
+
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-body pt-3">
+
+
+                    <ul class="nav nav-tabs nav-tabs-bordered">
+                       
+                        <li class="nav-item">
+                          <button class="nav-link" data-bs-toggle="tab"> <a href="/propertyManagement/">Edit apartment details </a></button>
+                        </li>
+        
+                        <li class="nav-item">
+                          <button class="nav-link" data-bs-toggle="tab"> <a href="/unitManagement/">Edit unit details </a></button>
+                        </li>
+        
+                            
+                      </ul>
+
+
+                    <form method="post" action="/propertyManagement/">
+
+                        {% csrf_token %}
+        
+                        <div class="row mb-3">
+                            <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Property Image</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="property_image" type="file" class="form-control" id="property_image">
+                              <div class="pt-2">
+                                <a href="#" id="upload-profile-image" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
+                                <a href="#" id="remove-profile-image" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                              </div>
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Apartment Name</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="name" type="text" class="form-control" id="name">
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="address" type="text" class="form-control" id="address">
+                            </div>
+                          </div>
+      
+                          
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Property type</label>
+                            <div class="col-md-8 col-lg-9">
+                              
+      
+                              <input type="radio" name="property_types" id="property_types" value="apartment_building">
+                              <label for="apartment_building" class="form-check-label">Apartment Building</label> 
+      
+                              <input type="radio" id="property_types" value="single_family_home" name="property_types">
+                              <label for="single_family_home" class="form-check-label">Single family home</label> 
+      
+                              <input type="radio" id="property_types" value="condominium" name="property_types">
+                              <label for="condominium" class="form-check-label">Condominium</label> 
+      
+                              <input type="radio" id="property_types" value="duplex" name="property_types">
+                              <label for="duplex" class="form-check-label">Duplex</label> 
+      
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Total units</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="totalunits" type="number" class="form-control" id="totalunits">
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Property size</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="property_size" type="text" class="form-control" id="property_size">
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Building age</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="building_age" type="text" class="form-control" id="building_age">
+                            </div>
+                          </div>
+      
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Amenities</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="amenities" type="text" class="form-control" id="amenities">
+                            </div>
+                          </div>
+      
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Utilities</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="utilities" type="text" class="form-control" id="utilities">
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Maintenance services</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="maintenance" type="text" class="form-control" id="maintenance">
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Parking</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="parking" type="text" class="form-control" id="parking">
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Security</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="security" type="text" class="form-control" id="security">
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Rules</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="rules" type="text" class="form-control" id="rules">
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Accessibility features</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="accessibility" type="text" class="form-control" id="accessibility">
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Management company (if any)</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="management_company" type="text" class="form-control" id="management_company">
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Lease terms (if any)</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="lease_terms" type="text" class="form-control" id="lease_terms">
+                              <input name="lease_terms" type="file" class="form-control" id="lease_terms">
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Property description</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="description" type="text" class="form-control" id="description">
+                            </div>
+                          </div>
+                          
+                        <div class="text-center">
+                          <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                      </form><!-- End Profile Edit Form -->
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</main>
+
+{% endblock %}
+</body>
+</html>
+    

@@ -1,0 +1,145 @@
+{% extends 'landlord/landlordBase.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+{% block pagecontent %}
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Apartment information</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/home/">Home</a></li>
+          <li class="breadcrumb-item">Users</li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section profile">
+      <div class="row">
+
+            <h5 class="card-title">Add Your Apartment Listing:</h5>
+            <p class="small fst-italic">Input details about your apartment now and have the flexibility to edit at any time. Keep your listing up-to-date effortlessly!</p>
+
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-body pt-3">
+
+
+                    <ul class="nav nav-tabs nav-tabs-bordered">
+                       
+                        <li class="nav-item">
+                          <button class="nav-link" data-bs-toggle="tab"> <a href="/propertyManagement/">Edit apartment details </a></button>
+                        </li>
+        
+                        <li class="nav-item">
+                          <button class="nav-link" data-bs-toggle="tab"> <a href="/unitManagement/">Edit unit details </a></button>
+                        </li>
+        
+                            
+                      </ul>
+
+
+                    <form method="post" action="/unitManagement/">
+
+                        {% csrf_token %}
+        
+                        <div class="row mb-3">
+                            <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Unit Image</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="unit_image" type="file" class="form-control" id="unit_image">
+                              <div class="pt-2">
+                                <a href="#" id="upload-profile-image" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
+                                <a href="#" id="remove-profile-image" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                              </div>
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Floor Number</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="floornumber" type="number" class="form-control" id="floornumber">
+                            </div>
+                          </div>
+      
+
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Bedrooms</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="bedrooms" type="number" class="form-control" id="bedrooms">
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="Address" class="col-md-4 col-lg-3 col-form-label">Bathrooms</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="bathrooms" type="text" class="form-control" id="bathrooms">
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Unit size</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="unit_size" type="text" class="form-control" id="unit_size">
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Rent amount</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="rent" type="text" class="form-control" id="rent">
+                            </div>
+                          </div>
+      
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Security deposit</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="deposit" type="text" class="form-control" id="deposit">
+                            </div>
+                          </div>
+
+
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Description</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="description" type="text" class="form-control" id="description">
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Availability</label>
+                            <div class="col-md-8 col-lg-9">
+                              
+                              <input type="radio" name="availability" id="availability" value="yes">
+                              <label for="apartment_building" class="form-check-label">YES</label> 
+      
+                              <input type="radio" id="availability" value="no" name="availability">
+                              <label for="single_family_home" class="form-check-label">NO</label> 
+      
+                           
+                            </div>
+                          </div>
+    
+                        
+                        <div class="text-center">
+                          <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                      </form><!-- End Profile Edit Form -->
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</main>
+
+{% endblock %}
+</body>
+</html>
+    
