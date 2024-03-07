@@ -49,7 +49,7 @@
         {% for property in properties %}
 
          <!-- Determine the filter class based on property_type -->
-          <!-- {% with property.property_type as p_type %}
+          {% with property.property_type as p_type %}
             {% if p_type == 'apartment_building' %} 
                 {% with filter_class='filter-apartment' %}  {% endwith %}
             {% elif p_type == 'duplex' %}
@@ -60,25 +60,26 @@
                 {% with filter_class='filter-singlefamilyhomes' %}  {% endwith %}
             {% else %}
                 {% with filter_class='' %}  {% endwith %}
-            {% endif %} -->
+            {% endif %}
 
 
 
-            <div class="col-lg-4 col-md-6 portfolio-item filter-duplex">
-              <div class="portfolio-content h-100">
-                <img src="{{property.property_imageURL}}" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>{{property.property_type}}</h4>
-                  <p>{{property.description}}</p>
-                  <a href="{{property.property_imageURL}}" title="Property details" data-gallery="portfolio-gallery-construction" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                 <a href="{% url 'apartmentdetails' property.property_code %}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> 
-                </div>
-              </div>
-            </div><!-- End Projects Item -->
+           <div class="col-lg-4 col-md-6 portfolio-item {{ filter_class }}">
+    <div class="portfolio-content h-100">
+        <img src="{{ property.property_imageURL }}" class="img-fluid" alt="">
+        <div class="portfolio-info">
+            <h4>{{ property.property_type }}</h4>
+            <p>{{ property.description }}</p>
+            <a href="{{ property.property_imageURL }}" title="Property details" data-gallery="portfolio-gallery-construction" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+            <a href="{% url 'apartmentdetails' property.property_code %}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> 
+        </div>
+    </div>
+</div><!-- End Projects Item -->
+
 
             
            
-            <!--{% endwith %} -->
+            {% endwith %} 
 
           {% endfor %}
           </div><!-- End Projects Container -->

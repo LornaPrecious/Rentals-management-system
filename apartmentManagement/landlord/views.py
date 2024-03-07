@@ -92,7 +92,7 @@ def profile(request):
 
 def propertyManagement(request):
     if request.method =="POST":
-            property_image = request.POST['property_image']
+            property_image = request.FILES.get('property_image')
             name = request.POST['name'] 
             address = request.POST['address']       
             property_type = request.POST['property_types']
@@ -127,7 +127,7 @@ def propertyManagement(request):
 
 def unitManagement(request):
     if request.method =="POST":
-            unit_image = request.POST['unit_image']
+            unit_image = request.FILES.get('unit_image')
             floornumber = request.POST['floornumber'] 
             bedrooms = request.POST['bedrooms']       
             bathrooms = request.POST['bathrooms']
