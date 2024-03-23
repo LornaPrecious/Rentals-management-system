@@ -2,11 +2,10 @@ from django.db import models
 from main.models import *
 
 class ParentProperty(models.Model):
-    if Customer.role == 'landlord':
-        customer = models.ForeignKey(Customer, on_delete = models.CASCADE, null = True, blank=True)
+    customer = models.ForeignKey(Customer, on_delete = models.CASCADE, null = True, blank=True)
 
     PROPERTY_TYPES = [
-        ('apartment_building', 'Apartment Building'),
+        ('apartment', 'Apartment'),
         ('single_family_home', 'Single Family Home'),
         ('condominium', 'Condominium'),
         ('duplex', 'Duplex')
@@ -16,8 +15,8 @@ class ParentProperty(models.Model):
     property_code = models.IntegerField(primary_key = True)
     name = models.CharField(max_length=100, null=True, blank = True) #name of apartment building
     property_image = models.ImageField(null=True, blank=True)
-    address = models.CharField(max_length=255) #Where the apartment is located
-    property_type = models.CharField(max_length=50, choices=PROPERTY_TYPES, default='apartment_building')
+    location = models.CharField(max_length=255) #Where the apartment is located
+    property_type = models.CharField(max_length=50, choices=PROPERTY_TYPES, default='apartment')
     total_units = models.CharField(max_length=250, default = 1) #number of apartment, homes, etc. 
     property_size = models.CharField(max_length=250, help_text="Size of the property in square feet", blank=True, null=True)
     building_age = models.CharField(max_length=250, help_text="Age of the building in years", blank=True, null=True)
@@ -27,6 +26,7 @@ class ParentProperty(models.Model):
     maintenance_services = models.TextField(blank=True, null=True) #if offered by property owner
     parking = models.TextField(blank=True, null=True) #none,  garage, open parking lot
     security_features = models.TextField(blank=True, null=True) #cctvs, watchmen, gated access, dogs, etc
+    average_rent = models.CharField(max_length=100, blank=True, null=True)
     rules_regulations = models.TextField(blank=True, null=True) #noise policies, pet policies, smoking policies,
     accessibility = models.TextField(blank=True, null=True) # wheelchair ramps, elevators
     lease_terms = models.TextField(blank=True, null=True)
@@ -52,7 +52,7 @@ class ParentProperty(models.Model):
 #documentation = models.TextField(blank=True, null=True)
 
 
-class Units(models.Model):
+class Unit(models.Model):
     parent_property = models.ForeignKey(ParentProperty, on_delete = models.CASCADE)
 
     unit_number = models.CharField(max_length = 100, primary_key = True)
@@ -81,8 +81,8 @@ class Units(models.Model):
         return url
 
 
-class Tenants(models.Model):
-    unit = models.ForeignKey(Units, on_delete = models.CASCADE)
+class Tenant(models.Model):
+    unit = models.ForeignKey(Unit, on_delete = models.CASCADE)
 
     tenants_id = models.CharField(max_length = 25, primary_key = True)
     first_name = models.CharField(max_length= 100, null=True, blank=True)

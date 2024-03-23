@@ -47,7 +47,7 @@ urlpatterns = [
     
 
     path('apartments/',  lv.apartments, name ='apartments'),
-    path('apartment-details/<int:property_code>/',  lv.apartmentDetails, name ='apartmentdetails'),
+    path('apartment-details/',  lv.apartmentDetails, name ='apartmentdetails'),
     path('profile/',  lv.profile, name ='profile'),
     path('propertyManagement/',  lv.propertyManagement, name ='propertyManagement'),
     path('unitManagement/',  lv.unitManagement, name ='unitManagement'),

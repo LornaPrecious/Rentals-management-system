@@ -1,6 +1,6 @@
 import os
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import ParentProperty, Units
+from .models import ParentProperty, Unit
 from main.models import Customer
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -12,19 +12,33 @@ from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site 
 from apartmentManagement import settings
 from django.core.mail import EmailMessage
-
+from django.db.models import Q
+from .utils import property_details
 # Create your views here.
 def apartments(request):
-    properties = ParentProperty.objects.all()
+    if request.method == 'POST':
+        search_term = request.POST['search_term']
+        query = Q()
+        for field in ParentProperty._meta.fields:
+            if field.get_internal_type() in ['CharField', 'TextField', 'IntegerField']:
+                query |= Q(**{f"{field.name}__contains": search_term})
+        properties = ParentProperty.objects.filter(query)
+
+    #[field.name for field in User._meta.get_fields()]
+    #my_model_fields = [field.name for field in MyModel._meta.get_fields()]
+    else:    
+        properties = ParentProperty.objects.all()
+
     context = {'properties': properties}
     return render(request, "landlord/apartments.html", context)
 
-def apartmentDetails(request, property_code):
-   property = get_object_or_404(ParentProperty, property_code=property_code)
-    # Render a template with the property details
-   return render(request, 'landlord/apartment-details.html', {'property': property})
-
-
+def apartmentDetails(request):
+    # context = {'items': property_details(request)['items']}
+    details = property_details(request)
+    items = details['items']
+    context = {'items': items}
+    return render(request, 'landlord/apartment-details.html', context)
+   
 def profile(request):
     customer = None  # Initialize customer variable
     if request.user.is_authenticated:
@@ -77,12 +91,15 @@ def profile(request):
                 user.save()
 
         # Update the customer instance
+        customer.username = username
         customer.first_name = fname
         customer.last_name = lname
         customer.email = email
         customer.phone_number = phonenumber
         customer.gender = gender
         customer.save()
+
+        messages.success(request, "Profile updated successfully")
     #else:
         # If the request method is GET and the user is authenticated, fetch the customer associated with the user
         #if request.user.is_authenticated:
@@ -94,7 +111,8 @@ def propertyManagement(request):
     if request.method =="POST":
             property_image = request.FILES.get('property_image')
             name = request.POST['name'] 
-            address = request.POST['address']       
+            location = request.POST['address']  
+            average_rent = request.POST['average_rent']     
             property_type = request.POST['property_types']
             totalunits = request.POST['totalunits'] 
             property_size = request.POST['property_size'] 
@@ -119,9 +137,24 @@ def propertyManagement(request):
                         for chunk in property_image.chunks():
                               destination.write(chunk)
         
+
         
-            myproperty=ParentProperty(name = name, property_image=property_image, address=address, property_type=property_type, total_units=totalunits, property_size =property_size, building_age=building_age, management_company=management_company, amenities=amenities, utilities=utilities, maintenance_services=maintenance, parking=parking, security_features=security, rules_regulations=rules, accessibility=accessibility, lease_terms=lease_terms,description=description)                                
-            myproperty.save()
+            if request.user.is_authenticated:
+                customer = request.user.customer
+                if customer.role == 'landlord':
+                    myproperty=ParentProperty(customer=customer, name = name, property_image=property_image, location=location, property_type=property_type, average_rent=average_rent,
+                                              total_units=totalunits, property_size =property_size, building_age=building_age,
+                                              management_company=management_company, amenities=amenities, utilities=utilities, 
+                                              maintenance_services=maintenance, parking=parking, security_features=security, 
+                                              rules_regulations=rules, accessibility=accessibility, lease_terms=lease_terms,description=description)                                
+                    myproperty.save()
+
+                    messages.success(request, "Your property has successfully been added")
+
+            else:
+                messages.error(request, "Please login")
+                return redirect('login')
+                 
 
     return render(request, "landlord/landlordApartment.html")
 
@@ -147,7 +180,7 @@ def unitManagement(request):
                               destination.write(chunk)
 
 
-            myunit=Units(unit_image=unit_image, floor_number = floornumber, bedrooms=bedrooms, bathrooms=bathrooms, unit_size=unit_size, rent_amount=rent, security_deposit=deposit, availability=availability, description=description)                                
+            myunit=Unit(unit_image=unit_image, floor_number = floornumber, bedrooms=bedrooms, bathrooms=bathrooms, unit_size=unit_size, rent_amount=rent, security_deposit=deposit, availability=availability, description=description)                                
             myunit.save()
 
     return render(request, "landlord/unitDetails.html")
@@ -165,3 +198,16 @@ def activate(request, uidb64, token):
             user.save()
       else:
            return render(request, 'activation_failed.html')
+      
+# def apartment_search(request):
+#     if request.method == 'GET':
+#         search_term = request.GET.get('search_term', '')  # Get the search term from the request
+#         query = Q()
+#         for field in ParentProperty._meta.fields:  # Iterate over all fields in the Apartment model
+#             if field.get_internal_type() in ['CharField', 'TextField']:  # Consider only text-like fields
+#                 query |= Q(**{f"{field.name}__contains": search_term})  # Use __contains for each text-like field
+#         apartments = ParentProperty.objects.filter(query)
+
+#         return render(request, 'apartment_search.html', {'apartments': apartments})
+#     else:
+#         return render(request, 'apartment_search.html')

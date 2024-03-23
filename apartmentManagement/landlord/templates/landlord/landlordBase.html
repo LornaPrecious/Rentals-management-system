@@ -41,6 +41,15 @@
 
 <body>
 
+  {% for message in messages %}
+        <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+            <strong>Message: </strong> {{message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="close">
+            <span aria-hidden="true">&times;</span> </button>
+
+        </div>
+  {% endfor %}
+
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -53,12 +62,13 @@
     </div><!-- End Logo -->
 
     <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        {% csrf_token %}
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      <form class="search-form d-flex align-items-center" method="GET" role="search">
+          {% csrf_token %}
+          <input type="search" name="search_term" id="search_term" placeholder="Search" required aria-label="Search">
+          <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
-    </div><!-- End Search Bar -->
+    </div>
+  <!-- End Search Bar -->
 
      <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
@@ -221,14 +231,14 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="/propertyManagement/">
           <i class="bi bi-file-earmark"></i>
-          <span>Add an apartment</span>
+          <span>Add a Property</span>
         </a>
       </li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="/unitManagement/">
           <i class="bi bi-file-earmark"></i>
-          <span>Add an apartment</span>
+          <span>Add Units</span>
         </a>
       </li>
 

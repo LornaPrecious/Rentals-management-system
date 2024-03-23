@@ -55,7 +55,7 @@ def register (request):
             user.is_active = False
             user.save()
             
-            mycustomer=Customer(user = user, first_name = fname, last_name = lname, email=email, password=password, phone_number=phonenumber, gender=gender, role = classify, customer_image = profile_picture)                                
+            mycustomer=Customer(user = user, username=username, first_name = fname, last_name = lname, email=email, password=password, phone_number=phonenumber, gender=gender, role = classify, customer_image = profile_picture)                                
             mycustomer.save()
 
             messages.success(request, "Your account has been created successfully. Please check your email for email verification.")
