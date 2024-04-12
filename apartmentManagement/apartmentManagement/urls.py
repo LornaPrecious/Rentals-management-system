@@ -47,29 +47,28 @@ urlpatterns = [
     
 
     path('apartments/',  lv.apartments, name ='apartments'),
-    path('apartment-details/',  lv.apartmentDetails, name ='apartmentdetails'),
+    path('apartment-details/<int:property_code>/',  lv.apartmentDetails, name ='apartmentdetails'),
     path('profile/',  lv.profile, name ='profile'),
     path('propertyManagement/',  lv.propertyManagement, name ='propertyManagement'),
-    path('unitManagement/',  lv.unitManagement, name ='unitManagement'),
-    
+   
 
-    path('password-reset/', PasswordResetView.as_view(
-           template_name='registration/password_reset_form.html',
-           html_email_template_name='registration/password_reset.html'
-           ),
-           name='password-reset'), 
-    path('password-reset/done/', PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'),name='password_reset_done'),
-    path('password-reset-confirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'),name='password_reset_confirm'),
-    path('password-reset-complete/',PasswordResetCompleteView.as_view(
-            template_name='registration/password_reset_complete.html',
-            #email_template_name='passwordConfirmation.html'
-            ),
-            name='password_reset_complete'),
+    # path('password-reset/', PasswordResetView.as_view(
+    #        template_name='registration/password_reset_form.html',
+    #        html_email_template_name='registration/password_reset.html'
+    #        ),
+    #        name='password-reset'), 
+    # path('password-reset/done/', PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'),name='password_reset_done'),
+    # path('password-reset-confirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'),name='password_reset_confirm'),
+    # path('password-reset-complete/',PasswordResetCompleteView.as_view(
+    #         template_name='registration/password_reset_complete.html',
+    #         #email_template_name='passwordConfirmation.html'
+    #         ),
+    #         name='password_reset_complete'),
 
 ]
 
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
     #path('logout/', LogoutView.as_view(next_page='login'),name='logout'),
-
+ #path("<int:id>", views.productsid, name = "productsid") #dynamic pages in terms of linking
 

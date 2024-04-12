@@ -46,16 +46,6 @@ class ParentProperty(models.Model):
             url = ''
         return url
 
-#Tenant Information: Information about current and past tenants occupying units within the property.
-#insurance_info = models.TextField(blank=True, null=True)
-#financial_info = models.TextField(blank=True, null=True)
-#documentation = models.TextField(blank=True, null=True)
-
-
-class Unit(models.Model):
-    parent_property = models.ForeignKey(ParentProperty, on_delete = models.CASCADE)
-
-    unit_number = models.CharField(max_length = 100, primary_key = True)
     unit_image = models.ImageField(null=True, blank=True)
     floor_number = models.CharField(max_length=100, null=True, blank = True) #Which floor is the apartment located in
     bedrooms = models.CharField(max_length=100, null=True, blank = True) 
@@ -64,12 +54,7 @@ class Unit(models.Model):
     rent_amount = models.IntegerField(null=True, blank = True) #
     security_deposit = models.IntegerField(null=True, blank=True)
     availability = models.BooleanField(null=True, blank=True)
-    description = models.TextField(null=True, blank = True)
-
-    def __str__(self):
-        return self.unit_number
-    class Meta:
-        db_table='unit_information'
+    unit_description = models.TextField(null=True, blank = True)
 
 
     @property #help us access this as an attribute rather than as a model
@@ -81,8 +66,9 @@ class Unit(models.Model):
         return url
 
 
+
 class Tenant(models.Model):
-    unit = models.ForeignKey(Unit, on_delete = models.CASCADE)
+    parent_property = models.ForeignKey(ParentProperty, on_delete = models.CASCADE)
 
     tenants_id = models.CharField(max_length = 25, primary_key = True)
     first_name = models.CharField(max_length= 100, null=True, blank=True)
@@ -102,4 +88,9 @@ class Tenant(models.Model):
     class Meta:
         db_table='tenants_information'
 
-    
+class Review(models.Model):
+    parent_property = models.ForeignKey(ParentProperty, on_delete = models.CASCADE)
+
+    name = models.CharField(max_length = 250, null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
+    comment = models.TextField(null=True, blank=True)

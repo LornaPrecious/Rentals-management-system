@@ -19,10 +19,12 @@
       </nav>
     </div><!-- End Page Title -->
 
+    {% if customer %}
+
     <section class="section profile">
       <div class="row">
     
-      {% if customer %}
+     
   
         <div class="col-xl-4">
 
@@ -43,6 +45,7 @@
           <div class="card">
             <div class="card-body pt-3">
               <!-- Bordered Tabs -->
+            {% if customer.role|lower == 'landlord' %}
               <ul class="nav nav-tabs nav-tabs-bordered">
 
                 <li class="nav-item">
@@ -57,11 +60,31 @@
                   <button class="nav-link" data-bs-toggle="tab"> <a href="/propertyManagement/">Edit apartment details </a></button>
                 </li>
 
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
-                </li>
+                </li> -->
 
               </ul>
+
+            {% else %}
+
+            <ul class="nav nav-tabs nav-tabs-bordered">
+
+              <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+              </li>
+
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+              </li>
+
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+              </li>
+
+            </ul>
+
+            {% endif %}
 
               <div class="tab-content pt-2">
 
@@ -95,13 +118,7 @@
                   </div>
                 </div>
 
-                
-        
-      {% else %}
-        <p>No customer information available.</p>
-    
-    
-      {% endif %}
+              
 
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
@@ -221,7 +238,11 @@
       </div>
     </section>
 
+   
+
   </main><!-- End #main -->
+
+  {% endif %}
 
 
   <script>

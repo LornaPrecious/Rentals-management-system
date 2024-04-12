@@ -37,14 +37,14 @@
                         </li>
         
                         <li class="nav-item">
-                          <button class="nav-link" data-bs-toggle="tab"> <a href="/unitManagement/">Edit unit details </a></button>
+                          <button class="nav-link" data-bs-toggle="tab"> <a href="{% url 'unitManagement' property_code=property_detail.property_code %}">Edit unit details </a></button>
                         </li>
         
                             
                       </ul>
 
 
-                    <form method="post" action="/unitManagement/" enctype="multipart/form-data">
+                    <form method="post" action="{% url 'unitManagement' property_code=property_detail.property_code %}" enctype="multipart/form-data">
 
                         {% csrf_token %}
         
@@ -115,10 +115,10 @@
                             <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Availability</label>
                             <div class="col-md-8 col-lg-9">
                               
-                              <input type="radio" name="availability" id="availability" value="yes">
+                              <input type="radio" name="availability" id="availability" value="True">
                               <label for="apartment_building" class="form-check-label">YES</label> 
       
-                              <input type="radio" id="availability" value="no" name="availability">
+                              <input type="radio" id="availability" value="False" name="availability">
                               <label for="single_family_home" class="form-check-label">NO</label> 
       
                            

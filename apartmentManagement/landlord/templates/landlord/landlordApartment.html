@@ -22,7 +22,6 @@
 
     <section class="section profile">
       <div class="row">
-
             <h5 class="card-title">Add Your Apartment Listing:</h5>
             <p class="small fst-italic">Input details about your apartment now and have the flexibility to edit at any time. Keep your listing up-to-date effortlessly!</p>
 
@@ -36,12 +35,7 @@
                         <li class="nav-item">
                           <button class="nav-link" data-bs-toggle="tab"> <a href="/propertyManagement/">Edit apartment details </a></button>
                         </li>
-        
-                        <li class="nav-item">
-                          <button class="nav-link" data-bs-toggle="tab"> <a href="/unitManagement/">Edit unit details </a></button>
-                        </li>
-        
-                            
+                               
                       </ul>
 
 
@@ -196,7 +190,90 @@
                               <input name="description" type="text" class="form-control" id="description">
                             </div>
                           </div>
+
+
+                          <h4> Add details about at least one unit in your property, such as an apartment from your apartment building</h4>
                           
+                          <div class="row mb-3">
+                            <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Unit Image</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="unit_image" type="file" class="form-control" id="unit_image">
+                              <div class="pt-2">
+                                <a href="#" id="upload-profile-image" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
+                                <a href="#" id="remove-profile-image" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                              </div>
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Floor Number</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="floornumber" type="number" class="form-control" id="floornumber">
+                            </div>
+                          </div>
+      
+
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Bedrooms</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="bedrooms" type="number" class="form-control" id="bedrooms">
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="Address" class="col-md-4 col-lg-3 col-form-label">Bathrooms</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="bathrooms" type="text" class="form-control" id="bathrooms">
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Unit size</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="unit_size" type="text" class="form-control" id="unit_size">
+                            </div>
+                          </div>
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Rent amount</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="rent" type="text" class="form-control" id="rent">
+                            </div>
+                          </div>
+      
+      
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Security deposit</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="deposit" type="text" class="form-control" id="deposit">
+                            </div>
+                          </div>
+
+
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Description</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="description" type="text" class="form-control" id="description">
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Availability</label>
+                            <div class="col-md-8 col-lg-9">
+                              
+                              <input type="radio" name="availability" id="availability" value="True">
+                              <label for="yes" class="form-check-label">YES</label> 
+      
+                              <input type="radio" id="availability" value="False" name="availability">
+                              <label for="no" class="form-check-label">NO</label> 
+      
+                           
+                            </div>
+                          </div>
+
+
+
+
                         <div class="text-center">
                           <button type="submit" class="btn btn-primary">Save Changes</button>
                         </div>

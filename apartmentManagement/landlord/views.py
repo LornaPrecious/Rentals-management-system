@@ -1,6 +1,6 @@
 import os
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import ParentProperty, Unit
+from .models import ParentProperty, Review
 from main.models import Customer
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -13,7 +13,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from apartmentManagement import settings
 from django.core.mail import EmailMessage
 from django.db.models import Q
-from .utils import property_details
+#from .utils import property_details
 # Create your views here.
 def apartments(request):
     if request.method == 'POST':
@@ -32,13 +32,32 @@ def apartments(request):
     context = {'properties': properties}
     return render(request, "landlord/apartments.html", context)
 
-def apartmentDetails(request):
+def apartmentDetails(request, property_code):
+    property_detail = ParentProperty.objects.get(property_code = property_code)
+    #unit_detail = Unit.objects.get(parent_property = property_code)
+
+    if request.method == "POST":
+        name = request.POST['name']
+        email = request.POST['email']
+        comment = request.POST['comment']
+
+        myreviews = Review(parent_property=property_detail, name=name, email=email, comment=comment)
+        myreviews.save()
+
+        
+    reviews = Review.objects.filter(parent_property=property_code)
+        
+    return render(request, 'landlord/apartment-details.html', {
+        'property_detail': property_detail,
+        'reviews': reviews,
+    
+    })
+
     # context = {'items': property_details(request)['items']}
-    details = property_details(request)
-    items = details['items']
-    context = {'items': items}
-    return render(request, 'landlord/apartment-details.html', context)
-   
+    # details = property_details(request)
+    # items = details['items']
+    # context = {'items': items}
+
 def profile(request):
     customer = None  # Initialize customer variable
     if request.user.is_authenticated:
@@ -108,6 +127,9 @@ def profile(request):
     return render(request, "landlord/profile.html", {'customer': customer})
 
 def propertyManagement(request):
+    if request.user.is_authenticated:
+        customer, created = Customer.objects.get_or_create(user=request.user)  
+
     if request.method =="POST":
             property_image = request.FILES.get('property_image')
             name = request.POST['name'] 
@@ -128,38 +150,7 @@ def propertyManagement(request):
             lease_terms = request.POST['lease_terms'] 
             description = request.POST['description'] 
 
-            if property_image:
-                  # Construct the file path using MEDIA_ROOT
-                  file_path = os.path.join(settings.MEDIA_ROOT, 'property_image.jpg')
 
-                  # Open the file using the constructed file path
-                  with open(file_path, 'wb+') as destination:
-                        for chunk in property_image.chunks():
-                              destination.write(chunk)
-        
-
-        
-            if request.user.is_authenticated:
-                customer = request.user.customer
-                if customer.role == 'landlord':
-                    myproperty=ParentProperty(customer=customer, name = name, property_image=property_image, location=location, property_type=property_type, average_rent=average_rent,
-                                              total_units=totalunits, property_size =property_size, building_age=building_age,
-                                              management_company=management_company, amenities=amenities, utilities=utilities, 
-                                              maintenance_services=maintenance, parking=parking, security_features=security, 
-                                              rules_regulations=rules, accessibility=accessibility, lease_terms=lease_terms,description=description)                                
-                    myproperty.save()
-
-                    messages.success(request, "Your property has successfully been added")
-
-            else:
-                messages.error(request, "Please login")
-                return redirect('login')
-                 
-
-    return render(request, "landlord/landlordApartment.html")
-
-def unitManagement(request):
-    if request.method =="POST":
             unit_image = request.FILES.get('unit_image')
             floornumber = request.POST['floornumber'] 
             bedrooms = request.POST['bedrooms']       
@@ -170,6 +161,16 @@ def unitManagement(request):
             description = request.POST['description'] 
             availability = request.POST['availability'] 
 
+
+            if property_image:
+                  # Construct the file path using MEDIA_ROOT
+                  file_path = os.path.join(settings.MEDIA_ROOT, 'property_image.jpg')
+
+                  # Open the file using the constructed file path
+                  with open(file_path, 'wb+') as destination:
+                        for chunk in property_image.chunks():
+                              destination.write(chunk)
+
             if unit_image:
                   # Construct the file path using MEDIA_ROOT
                   file_path = os.path.join(settings.MEDIA_ROOT, 'unit_image.jpg')
@@ -178,14 +179,26 @@ def unitManagement(request):
                   with open(file_path, 'wb+') as destination:
                         for chunk in unit_image.chunks():
                               destination.write(chunk)
+      
+            
+            if customer.role == 'landlord':
+                myproperty=ParentProperty(customer=customer, name = name, property_image=property_image, location=location, property_type=property_type, average_rent=average_rent,
+                                              total_units=totalunits, property_size =property_size, building_age=building_age,
+                                              management_company=management_company, amenities=amenities, utilities=utilities, 
+                                              maintenance_services=maintenance, parking=parking, security_features=security, 
+                                              rules_regulations=rules, accessibility=accessibility, lease_terms=lease_terms,description=description,
+                                              unit_image=unit_image, floor_number = floornumber, bedrooms=bedrooms, bathrooms=bathrooms, unit_size=unit_size, rent_amount=rent, 
+                                              security_deposit=deposit, availability=availability, unit_description=description)                                
+                myproperty.save()
 
+                messages.success(request, "Your property has successfully been added")
+             
 
-            myunit=Unit(unit_image=unit_image, floor_number = floornumber, bedrooms=bedrooms, bathrooms=bathrooms, unit_size=unit_size, rent_amount=rent, security_deposit=deposit, availability=availability, description=description)                                
-            myunit.save()
-
-    return render(request, "landlord/unitDetails.html")
-
-
+            else:
+                messages.error(request, "Please login")
+                return redirect('login')
+            
+    return render(request, "landlord/landlordApartment.html", {'customer': customer})
 def activate(request, uidb64, token):
       try:
             uid = force_text(urlsafe_base64_decode(uidb64))

@@ -51,6 +51,7 @@
   {% endfor %}
 
   <!-- ======= Header ======= -->
+ 
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
@@ -61,15 +62,15 @@
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <div class="search-bar">
+    <!-- <div class="search-bar">
       <form class="search-form d-flex align-items-center" method="GET" role="search">
           {% csrf_token %}
           <input type="search" name="search_term" id="search_term" placeholder="Search" required aria-label="Search">
           <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
-    </div>
+    </div> -->
   <!-- End Search Bar -->
-
+  
      <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
 
@@ -153,22 +154,17 @@
 
         </li><!-- End Messages Nav -->
 
-      {% if customer %}
+     
 
         <li class="nav-item dropdown pe-3">
-     
+       
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="{{customer.customer_imageURL}}" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">{{user.username}}</span>
           </a><!-- End Profile Iamge Icon -->
      
-      
-      {% else %}
-
-          <p>No customer information available.</p>
-          
-          
-      {% endif %}
+       
+  
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6>{{user.username}}</h6>
@@ -207,13 +203,15 @@
 
           </ul><!-- End Profile Dropdown Items -->
         </li><!-- End Profile Nav -->
-           
+       
       </ul>
     </nav><!-- End Icons Navigation -->
-
+   
   </header><!-- End Header -->
 
+ 
   <!-- ======= Sidebar ======= -->
+  {% if customer.role|lower == 'landlord' %}
   <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -233,20 +231,29 @@
           <i class="bi bi-file-earmark"></i>
           <span>Add a Property</span>
         </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/unitManagement/">
-          <i class="bi bi-file-earmark"></i>
-          <span>Add Units</span>
-        </a>
-      </li>
-
-      
+      </li>      
     </ul>
 
   </aside><!-- End Sidebar-->
 
+  {% else %}
+
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/profile/"> <!--LINK TO PAGE WHERE LANDLORDS CAN ADD APARTMENTS-->
+          <i class="bi bi-grid"></i>
+          <span>Profile</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+    
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+  {% endif %}
 
   {% block pagecontent %} {% endblock %}
 

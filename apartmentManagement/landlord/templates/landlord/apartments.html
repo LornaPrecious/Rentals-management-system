@@ -25,8 +25,9 @@
     <section id="projects" class="projects">
       <div class="container" data-aos="fade-up">
 
-        <div class="search-bar">
-          <form class="search-form d-flex align-items-center" method="post" role="search" action="{% url 'apartments' %}">
+        <div class="search-form sidebar-item">
+          <h3 class="sidebar-title">Search</h3>
+          <form class="d-flex align-items-center mt-3" method="post" role="search" action="{% url 'apartments' %}">
             {% csrf_token %}
             <input type="search" name="search_term" id="search_term" placeholder="Search" required aria-label="Search">
             <button type="submit" title="Search"><i class="bi bi-search"></i></button>
@@ -52,7 +53,7 @@
                   <h4>{{ property.property_type }}</h4>
                   <p>{{ property.description }}</p>
                   <a href="{{ property.property_imageURL }}" title="Apartment" data-gallery="portfolio-gallery-construction" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="{% url 'apartmentdetails' %}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <a href="{% url 'apartmentdetails' property_code=property.property_code %}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div>
@@ -70,7 +71,7 @@
                         <h4>{{ property.property_type }}</h4>
                         <p>{{ property.description }}</p>
                         <a href="{{ property.property_imageURL }}" title="Apartment" data-gallery="portfolio-gallery-construction" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                        <a href="{% url 'apartmentdetails' %}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> 
+                        <a href="{% url 'apartmentdetails' property_code=property.property_code %}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> 
                     </div>
                 </div>
             </div><!-- End Projects Item -->
@@ -84,7 +85,7 @@
                         <h4>{{ property.property_type }}</h4>
                         <p>{{ property.description }}</p>
                         <a href="{{ property.property_imageURL }}" title="Apartment" data-gallery="portfolio-gallery-construction" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                        <a href="{% url 'apartmentdetails' %}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> 
+                        <a href="{% url 'apartmentdetails' property_code=property.property_code %}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> 
                     </div>
                 </div>
             </div><!-- End Projects Item -->
@@ -98,7 +99,7 @@
                         <h4>{{ property.property_type }}</h4>
                         <p>{{ property.description }}</p>
                         <a href="{{ property.property_imageURL }}" title="Apartment" data-gallery="portfolio-gallery-construction" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                        <a href="{% url 'apartmentdetails' %}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> 
+                        <a href="{% url 'apartmentdetails' property_code=property.property_code %}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> 
                     </div>
                 </div>
             </div><!-- End Projects Item -->
@@ -112,7 +113,7 @@
                         <h4>{{ property.property_type }}</h4>
                         <p>{{ property.description }}</p>
                         <a href="{{ property.property_imageURL }}" title="Apartment" data-gallery="portfolio-gallery-construction" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                        <a href="{% url 'apartmentdetails' %}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> 
+                        <a href="{% url 'apartmentdetails' property_code=property.property_code %}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> 
                     </div>
                 </div>
             </div><!-- End Projects Item -->
