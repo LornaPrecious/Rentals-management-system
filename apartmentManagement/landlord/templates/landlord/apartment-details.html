@@ -37,7 +37,7 @@
               <div class="meta-top">
                 <ul>
                   <li class="d-flex align-items-center"><i class="bi bi-person"></i>{{ property_detail.location }}</li>
-                  <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="#comments">12 Comments</a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="#comments">{{ reviews.count }} Reviews</a></li>
                 </ul>
               </div><!-- End meta top -->
 
@@ -98,7 +98,7 @@
               </div><!-- End post content -->
             </article><!-- End blog post -->
   
-            <div class="comments">
+            <div class="comments" id="comments">
 
               <h4 class="comments-count">User reviews</h4>
             {% for review in reviews %}
@@ -107,7 +107,7 @@
                   <div class="comment-img"><img src="{{customer.customer_imageURL}}" alt=""></div>
                   <div>
                     <h5>{{review.name}}</h5>
-                    <time datetime="2020-01-01">01 Jan,2022</time>
+                    <time datetime="2020-01-01">{{review.date}}</time>
                     <p>
                      {{review.comment}}
                     </p>
@@ -156,21 +156,26 @@
 
               <div class="sidebar-item search-form">
                 <h3 class="sidebar-title">Search</h3>
-                <form action="" class="mt-3">
-                  <input type="text">
+                <form method="post" role="search" action="{% url 'apartments' %}" class="mt-3">
+                  {% csrf_token %}
+                  <input type="text" name="search_term" id="search_term">
                   <button type="submit"><i class="bi bi-search"></i></button>
                 </form>
               </div><!-- End sidebar search formn-->
 
               <div class="sidebar-item categories">
-                <h3 class="sidebar-title">Categories</h3>
+                <h3 class="sidebar-title">Search Categories</h3>
+                <br>
+                <p>The following are specific search criteria. If you select "rent amount", type the rent amount you wish to search for in search bar, For example, 10000. If you select "location", type your preferred location, For example, Kasarani...</p>
                 <ul class="mt-3">
-                  <li><a href="#">General <span>(25)</span></a></li>
-                  <li><a href="#">Lifestyle <span>(12)</span></a></li>
-                  <li><a href="#">Travel <span>(5)</span></a></li>
-                  <li><a href="#">Design <span>(22)</span></a></li>
-                  <li><a href="#">Creative <span>(8)</span></a></li>
-                  <li><a href="#">Educaion <span>(14)</span></a></li>
+                  <li><input type="radio" name="include_rent_amount"> Rent amount </li>
+                  <li><input type="radio" name="include_rent_amount"> Security features</li>
+                  <li><input type="radio" name="include_rent_amount"> Location</li>
+                  <li><input type="radio" name="include_rent_amount"> Amenities</li>
+                  <li><input type="radio" name="include_rent_amount"> Utilities</li>
+                  <li><input type="radio" name="include_rent_amount"> Property or unit size</li>
+                  <li><input type="radio" name="include_rent_amount"> Accessibility features</li>
+                  <li><input type="radio" name="include_rent_amount"> Rules and regulations such as no pets</li>
                 </ul>
               </div><!-- End sidebar categories-->
 
@@ -178,17 +183,15 @@
               <div class="sidebar-item tags">
                 <h3 class="sidebar-title">Tags</h3>
                 <ul class="mt-3">
-                  <li><a href="#">App</a></li>
-                  <li><a href="#">IT</a></li>
-                  <li><a href="#">Business</a></li>
-                  <li><a href="#">Mac</a></li>
-                  <li><a href="#">Design</a></li>
-                  <li><a href="#">Office</a></li>
-                  <li><a href="#">Creative</a></li>
-                  <li><a href="#">Studio</a></li>
-                  <li><a href="#">Smart</a></li>
-                  <li><a href="#">Tips</a></li>
-                  <li><a href="#">Marketing</a></li>
+                  <li><a href="#">Rent amount</a></li>
+                  <li><a href="#">Security features</a></li>
+                  <li><a href="#">Location</a></li>
+                  <li><a href="#">Amenities</a></li>
+                  <li><a href="#">Utilities</a></li>
+                  <li><a href="#">Property or unit size</a></li>
+                  <li><a href="#"> Accessibility features</a></li>
+                  <li><a href="#">Rules and regulations</a></li>
+                 
                 </ul>
               </div><!-- End sidebar tags-->
 

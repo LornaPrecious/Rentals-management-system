@@ -93,4 +93,5 @@ class Review(models.Model):
 
     name = models.CharField(max_length = 250, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
+    date = models.DateField(auto_now = True, null=True, blank=True)
     comment = models.TextField(null=True, blank=True)
